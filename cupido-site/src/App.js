@@ -21,7 +21,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(
-      "https://bjcce0a41k.execute-api.sa-east-1.amazonaws.com/default/sendEmail",
+      "https://ixnvihz6u4.execute-api.sa-east-1.amazonaws.com/sendEmail",
       {
         mode: "no-cors",
         method: "POST",
@@ -39,20 +39,26 @@ function App() {
   };
 
   return (
+    <div className="child">
     <div className="container">
       <form id="contact-form" onSubmit={handleFormSubmit}>
-        <label htmlFor="email">E-mail</label>
-        <input type="text" id="email" name="email" placeholder="E-mail de destino.." onChange={handleInputChange}/>
- 
+        <div className="title">
+          <label>Envie uma mensagem anônima para seu crush!</label>
+        </div>
         <label htmlFor="nome">Nome</label>
         <input type="text" id="nome" name="nome" placeholder="Nome da pessoa.." onChange={handleInputChange}/>
  
         <label htmlFor="mensagem">Mensagem</label>
         <textarea id="mensagem" name="mensagem" placeholder="Escreva algo.." className="textArea" onChange={handleInputChange}></textarea>
+
+        <label htmlFor="email">E-mail</label>
+        <input type="text" id="email" name="email" placeholder="E-mail de destino.." onChange={handleInputChange}/>
  
         <input type="submit" onClick={handleSubmit} value="Enviar" />
       </form>
     </div>
+    </div>
+    
   );
 }
  
