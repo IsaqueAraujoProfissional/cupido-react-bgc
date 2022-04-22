@@ -5,15 +5,11 @@ function App() {
   const [campos, setCampos] = useState({
     nome: '',
     email: '',
-    mensagem: '',
-    anexo: ''
+    mensagem: ''
   });
 
   function handleInputChange(event){
-    if(event.target.name === "anexo")
-      campos[event.target.name] = event.target.files[0];
-    else
-      campos[event.target.name] = event.target.value;
+    campos[event.target.name] = event.target.value;
     setCampos(campos);
   }
 
@@ -22,9 +18,29 @@ function App() {
       console.log(campos);
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(
+      "https://bjcce0a41k.execute-api.sa-east-1.amazonaws.com/default/sendEmail",
+      {
+        mode: "no-cors",
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: campos.nome,
+          mensagem : campos.mensagem,
+          email : campos.email,
+        }),
+      }
+    );
+  };
+
   return (
     <div className="container">
-      <form onSubmit={handleFormSubmit}>
+      <form id="contact-form" onSubmit={handleFormSubmit}>
         <label htmlFor="email">E-mail</label>
         <input type="text" id="email" name="email" placeholder="E-mail de destino.." onChange={handleInputChange}/>
  
@@ -34,10 +50,7 @@ function App() {
         <label htmlFor="mensagem">Mensagem</label>
         <textarea id="mensagem" name="mensagem" placeholder="Escreva algo.." className="textArea" onChange={handleInputChange}></textarea>
  
-        <label htmlFor="anexo">Anexo</label>
-        <input type="file" id="anexo" name="anexo" onChange={handleInputChange}/>
- 
-        <input type="submit" value="Enviar" />
+        <input type="submit" onClick={handleSubmit} value="Enviar" />
       </form>
     </div>
   );
