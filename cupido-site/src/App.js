@@ -34,9 +34,21 @@ function App() {
           mensagem : campos.mensagem,
           email : campos.email,
         }),
-      }
+        
+      },
     );
+    alert("E-mail enviado!");
+    limparCampos();
   };
+
+  function limparCampos(){
+    document.getElementById('nome').value='';
+    campos.nome = '';
+    document.getElementById('mensagem').value='';
+    campos.mensagem = '';
+    document.getElementById('email').value='';
+    campos.email = '';
+  }
 
   return (
     <div className="child">
